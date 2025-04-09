@@ -7,11 +7,23 @@ const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
+
+const corsOptions = {
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+};
+
+app.use(cors(corsOptions));
+
 const io = socketIo(server, {
-    cors: { origin: "*", methods: ["GET", "POST"] }
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["Content-Type"],
+    }
 });
 
-app.use(cors());
 
 // ✅ Use MySQL Connection Pool
 const db = mysql.createPool({
